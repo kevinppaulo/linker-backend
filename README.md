@@ -1,2 +1,5 @@
-# typescript-starter
-Just a quick starter for my ts projects
+# Linker
+
+---
+
+![Linker logo](https://i.imgur.com/03eRl0L.png)

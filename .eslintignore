@@ -1,0 +1,7 @@
+node_modules
+build
+dist
+res
+coverage
+webpack.config.js
+commitlint.config.js
