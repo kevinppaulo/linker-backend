@@ -4,22 +4,18 @@ import UserController from './controllers/UserController';
 
 const router = Router();
 
-// POST
+// User routes
 router.post('/user', UserController.create);
-router.post('/company', CompanyController.create);
-
-// GET
-router.get('/users', UserController.findAll);
+router.get('/user', UserController.findAll);
 router.get('/user/:userID', UserController.findOne);
-router.get('/companies', CompanyController.findAll);
-router.get('/company/:companyID', CompanyController.findOne);
-
-// PUT
 router.put('/user/:userID', UserController.update);
-router.put('/company/:companyID', CompanyController.update);
-
-// DELETE
 router.delete('/user/:userID', UserController.delete);
+
+// Company routes
+router.post('/company', CompanyController.create);
+router.get('/company', CompanyController.findAll);
+router.get('/company/:companyID', CompanyController.findOne);
+router.put('/company/:companyID', CompanyController.update);
 router.delete('/company/:companyID', CompanyController.delete);
 
 export { router };
