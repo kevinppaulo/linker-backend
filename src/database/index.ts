@@ -1,12 +1,23 @@
-import { connect } from 'mongoose';
+import { connect, ConnectOptions } from 'mongoose';
 
 export const connectToDatabase = async () => {
-  const uri: string = `mongodb+srv://${process.env.MONGOOSE_USER}:${process.env.MONGOOSE_PASSWORD}@${process.env.MONGOOSE_HOST}/${process.env.MONGOOSE_DATABASE}?retryWrites=true&w=majority`;
-  await connect(uri)
-    .then(() => {
-      console.log('[Linker] Database connection successful');
-    })
-    .catch((err) => {
-      console.error(`[Linker] Database connection error: ${err}`);
-    });
-};
+  const user        = process.env.MONGOOSE_USER;
+  const pass        = process.env.MONGOOSE_PASSWORD;
+  const db          = process.env.MONGOOSE_DATABASE;
+  const uri: string = `mongodb://localhost:27017/`;
+
+  console.log(uri);
+
+  const connectionParams: ConnectOptions = {
+    autoCreate: true,
+    user,
+    pass,
+    dbName: db,
+  };
+
+  console.log( connectionParams );
+
+  await connect(uri, connectionParams);
+  console.log('Connected to database');
+}
+
