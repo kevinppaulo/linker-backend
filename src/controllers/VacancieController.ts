@@ -4,6 +4,7 @@ import { Vacancie } from '../database/models/Vacancie';
 class VacancieController {
   async findAll(_request: Request, response: Response) {
     const vacancies = await Vacancie.find({});
+
     if (vacancies.length > 0) {
       return response.status(200).json(vacancies);
     } else {
@@ -13,7 +14,9 @@ class VacancieController {
 
   async findOne(request: Request, response: Response) {
     const { vacancieID } = request.params;
+
     const vacancie = await Vacancie.findById(vacancieID);
+
     if (vacancie) {
       return response.status(200).json(vacancie);
     } else {
@@ -58,7 +61,7 @@ class VacancieController {
     }
 
     if (vacancie_method.length === 0) {
-      const error = { type: 'Erro', message: 'Metódo da vaga é obritgatório!' };
+      const error = { type: 'Erro', message: 'Metódo da vaga é obrigatório!' };
       errors.push(error);
     }
 
@@ -86,12 +89,15 @@ class VacancieController {
     }
 
     if (requirements_desirable.length > 150) {
-      const error = {};
+      const error = {
+        type: 'Erro',
+        message: 'Os requesitos desejáveis devem ter no máximo 150 caractere!'
+      };
       errors.push(error);
     }
 
     if (area.length === 0) {
-      const error = { type: 'Erro', message: 'As areas de atuação da vaga são obrigatótias!' };
+      const error = { type: 'Erro', message: 'As areas de atuação da vaga são obrigatórias!' };
       errors.push(error);
     }
 
@@ -176,7 +182,7 @@ class VacancieController {
     }
 
     if (vacancie_method.length === 0) {
-      const error = { type: 'Erro', message: 'Metódo da vaga é obritgatório!' };
+      const error = { type: 'Erro', message: 'Metódo da vaga é obrigatório!' };
       errors.push(error);
     }
 
@@ -191,7 +197,7 @@ class VacancieController {
     }
 
     if (requirements.length > 150) {
-      const error = { type: 'Erro', messageL: 'Os requesitos devem ter no máximo 150 caracteres!' };
+      const error = { type: 'Erro', message: 'Os requesitos devem ter no máximo 150 caracteres!' };
       errors.push(error);
     }
 
@@ -204,12 +210,15 @@ class VacancieController {
     }
 
     if (requirements_desirable.length > 150) {
-      const error = {};
+      const error = {
+        type: 'Erro',
+        message: 'Os requesitos desejáveis devem ter no máximo 150 caractere!'
+      };
       errors.push(error);
     }
 
     if (area.length === 0) {
-      const error = { type: 'Erro', message: 'As areas de atuação da vaga são obrigatótias!' };
+      const error = { type: 'Erro', message: 'As areas de atuação da vaga são obrigatórias!' };
       errors.push(error);
     }
 
