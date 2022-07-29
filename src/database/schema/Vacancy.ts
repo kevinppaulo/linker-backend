@@ -10,7 +10,7 @@ export const VacancySchema = new Schema<IVacancy>({
     type: String,
     required: true
   },
-  vacancy_method: {
+  type: {
     type: String,
     required: true
   },
@@ -18,11 +18,11 @@ export const VacancySchema = new Schema<IVacancy>({
     type: String,
     required: true
   },
-  requirements: {
+  mandatory_requirements: {
     type: String,
     required: true
   },
-  requirements_desirable: {
+  desirable_requirements: {
     type: String,
     required: true
   },
@@ -34,11 +34,15 @@ export const VacancySchema = new Schema<IVacancy>({
     type: String,
     required: true
   },
-  remuneration: {
+  salary: {
     type: String,
     required: true
   },
-  vacancy_test: {
+  negotiable_salary: {
+    type: Boolean,
+    required: true
+  },
+  id_test: {
     type: String
   }
 });

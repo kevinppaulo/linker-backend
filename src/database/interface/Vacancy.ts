@@ -1,12 +1,13 @@
 export interface IVacancy {
   name: String;
   description: String;
-  vacancy_method: String;
+  type: String;
   localization: String;
-  requirements: String;
-  requirements_desirable: String;
+  mandatory_requirements: String;
+  desirable_requirements: String;
   area: String;
   benefits: String;
-  remuneration: String;
-  vacancy_test: String;
+  salary: String;
+  negotiable_salary: Boolean;
+  id_test: String;
 }
