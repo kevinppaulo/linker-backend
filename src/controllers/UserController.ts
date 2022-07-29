@@ -4,7 +4,7 @@ import { User } from '../database/models/User';
 class UserController {
   async findAll(_request: Request, response: Response) {
     const users = await User.find({});
-    if (users.length > 0) {
+    if (users) {
       return response.status(200).json(users);
     } else {
       return response.status(200).json({ type: 'Erro', message: 'Nenhum usuário encontrado!' });
@@ -23,48 +23,53 @@ class UserController {
 
   async create(request: Request, response: Response) {
     const { name, phone, photo, about, linkedin, github, state, city, interests } = request.body;
+    const errors = [];
     if (name.length === 0) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' });
+      const error = { type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' };
+      errors.push(error);
     }
     if (name.length > 64) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no máximo 64 caracteres!' });
+      const error = { type: 'Erro', message: 'O nome deve ter no máximo 64 caracteres!' };
+      errors.push(error);
     }
-    if (phone.length != 11) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O telefone deve ter 11 digitos!' });
+    if (phone.length != 11 && phone.length != 10) {
+      const error = { type: 'Erro', message: 'O telefone deve ter 11 ou 10 digitos!' };
+      errors.push(error);
     }
     if (photo.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'A foto é obrigatória!' });
+      const error = { type: 'Erro', message: 'A foto é obrigatória!' };
+      errors.push(error);
     }
     if (about.length === 0) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' });
+      const error = { type: 'Erro', message: 'O sobre mim deve ter no mínimo 1 caractere!' };
+      errors.push(error);
     }
     if (about.length > 124) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no máximo 124 caracteres!' });
+      const error = { type: 'Erro', message: 'O sobre mim deve ter no máximo 124 caracteres!' };
+      errors.push(error);
     }
     if (linkedin.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O LinkedIn é obrigatório!' });
+      const error = { type: 'Erro', message: 'O LinkedIn é obrigatório!' };
+      errors.push(error);
     }
     if (github.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O GitHub é obrigatório!' });
+      const error = { type: 'Erro', message: 'O GitHub é obrigatório!' };
+      errors.push(error);
     }
     if (state.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O estado é obrigatória!' });
+      const error = { type: 'Erro', message: 'O estado é obrigatória!' };
+      errors.push(error);
     }
     if (city.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'A cidade é obrigatória!' });
+      const error = { type: 'Erro', message: 'A cidade é obrigatória!' };
+      errors.push(error);
     }
     if (interests.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'Os interesses são obrigatório!' });
+      const error = { type: 'Erro', message: 'Selecione pelo menos um interesse!' };
+      errors.push(error);
+    }
+    if (Object.keys(errors).length) {
+      return response.status(400).json({ errors });
     }
     const user = await User.create({
       name,
@@ -87,52 +92,54 @@ class UserController {
   async update(request: Request, response: Response) {
     const { userID } = request.params;
     const { name, phone, photo, about, linkedin, github, state, city, interests } = request.body;
+    const errors = [];
     if (name.length === 0) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' });
+      const error = { type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' };
+      errors.push(error);
     }
     if (name.length > 64) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no máximo 64 caracteres!' });
+      const error = { type: 'Erro', message: 'O nome deve ter no máximo 64 caracteres!' };
+      errors.push(error);
     }
-    if (phone.length != 11) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O telefone deve ter 11 digitos!' });
+    if (phone.length != 11 && phone.length != 10) {
+      const error = { type: 'Erro', message: 'O telefone deve ter 11 ou 10 digitos!' };
+      errors.push(error);
     }
     if (photo.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'A foto é obrigatória!' });
+      const error = { type: 'Erro', message: 'A foto é obrigatória!' };
+      errors.push(error);
     }
     if (about.length === 0) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' });
+      const error = { type: 'Erro', message: 'O sobre mim deve ter no mínimo 1 caractere!' };
+      errors.push(error);
     }
     if (about.length > 124) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no máximo 124 caracteres!' });
+      const error = { type: 'Erro', message: 'O sobre mim deve ter no máximo 124 caracteres!' };
+      errors.push(error);
     }
     if (linkedin.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O LinkedIn é obrigatório!' });
+      const error = { type: 'Erro', message: 'O LinkedIn é obrigatório!' };
+      errors.push(error);
     }
     if (github.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O GitHub é obrigatório!' });
+      const error = { type: 'Erro', message: 'O GitHub é obrigatório!' };
+      errors.push(error);
     }
     if (state.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O estado é obrigatória!' });
+      const error = { type: 'Erro', message: 'O estado é obrigatória!' };
+      errors.push(error);
     }
     if (city.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'A cidade é obrigatória!' });
+      const error = { type: 'Erro', message: 'A cidade é obrigatória!' };
+      errors.push(error);
     }
     if (interests.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'Os interesses são obrigatório!' });
+      const error = { type: 'Erro', message: 'Selecione pelo menos um interesse!' };
+      errors.push(error);
     }
-    //if (userID != auth0.user.sub) {
-    //  return response.status(401).json({ type: 'Alerta', message: 'Usuário não autorizado!' });
-    //}
+    if (Object.keys(errors).length) {
+      return response.status(400).json({ errors });
+    }
     const user = await User.findByIdAndUpdate(
       userID,
       {
@@ -159,9 +166,6 @@ class UserController {
 
   async delete(request: Request, response: Response) {
     const { userID } = request.params;
-    //if (userID != auth0.user.sub) {
-    //  return response.status(401).json({ type: 'Alerta', message: 'Usuário não autorizado!' });
-    //}
     const user = await User.findByIdAndDelete(userID);
     if (user) {
       return response

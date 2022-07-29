@@ -4,7 +4,7 @@ import { Company } from '../database/models/Company';
 class CompanyController {
   async findAll(_request: Request, response: Response) {
     const users = await Company.find({});
-    if (users.length > 0) {
+    if (users) {
       return response.status(200).json(users);
     } else {
       return response.status(200).json({ type: 'Erro', message: 'Nenhum usuário encontrado!' });
@@ -23,42 +23,51 @@ class CompanyController {
 
   async create(request: Request, response: Response) {
     const { name, phone, photo, about, site, state, city } = request.body;
+    const errors = [];
     if (name.length === 0) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' });
+      const error = { type: 'Erro', message: 'O nome da empresa deve ter no mínimo 1 caractere!' };
+      errors.push(error);
     }
     if (name.length > 64) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no máximo 64 caracteres!' });
+      const error = {
+        type: 'Erro',
+        message: 'O nome da empresa deve ter no máximo 64 caracteres!'
+      };
+      errors.push(error);
     }
-    if (phone.length != 11) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O telefone deve ter 11 digitos!' });
+    if (phone.length != 11 && phone.length != 10) {
+      const error = { type: 'Erro', message: 'O telefone deve ter 11 ou 10 digitos!' };
+      errors.push(error);
     }
     if (photo.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'A foto é obrigatória!' });
+      const error = { type: 'Erro', message: 'A foto é obrigatória!' };
+      errors.push(error);
     }
     if (about.length === 0) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' });
+      const error = { type: 'Erro', message: 'O sobre a empresa deve ter no mínimo 1 caractere!' };
+      errors.push(error);
     }
     if (about.length > 124) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no máximo 124 caracteres!' });
+      const error = {
+        type: 'Erro',
+        message: 'O sobre a empresa deve ter no máximo 124 caracteres!'
+      };
+      errors.push(error);
     }
     if (site.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O site é obrigatório!' });
+      const error = { type: 'Erro', message: 'O site é obrigatório!' };
+      errors.push(error);
     }
     if (state.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O estado é obrigatória!' });
+      const error = { type: 'Erro', message: 'O estado é obrigatória!' };
+      errors.push(error);
     }
     if (city.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'A cidade é obrigatória!' });
+      const error = { type: 'Erro', message: 'A cidade é obrigatória!' };
+      errors.push(error);
+    }
+    if (Object.keys(errors).length) {
+      return response.status(400).json({ errors });
     }
     const user = await Company.create({
       name,
@@ -79,46 +88,52 @@ class CompanyController {
   async update(request: Request, response: Response) {
     const { companyID } = request.params;
     const { name, phone, photo, about, site, state, city } = request.body;
+    const errors = [];
     if (name.length === 0) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' });
+      const error = { type: 'Erro', message: 'O nome da empresa deve ter no mínimo 1 caractere!' };
+      errors.push(error);
     }
     if (name.length > 64) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no máximo 64 caracteres!' });
+      const error = {
+        type: 'Erro',
+        message: 'O nome da empresa deve ter no máximo 64 caracteres!'
+      };
+      errors.push(error);
     }
-    if (phone.length != 11) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O telefone deve ter 11 digitos!' });
+    if (phone.length != 11 && phone.length != 10) {
+      const error = { type: 'Erro', message: 'O telefone deve ter 11 ou 10 digitos!' };
+      errors.push(error);
     }
     if (photo.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'A foto é obrigatória!' });
+      const error = { type: 'Erro', message: 'A foto é obrigatória!' };
+      errors.push(error);
     }
     if (about.length === 0) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no mínimo 1 caractere!' });
+      const error = { type: 'Erro', message: 'O sobre a empresa deve ter no mínimo 1 caractere!' };
+      errors.push(error);
     }
     if (about.length > 124) {
-      return response
-        .status(400)
-        .json({ type: 'Erro', message: 'O nome deve ter no máximo 124 caracteres!' });
+      const error = {
+        type: 'Erro',
+        message: 'O sobre a empresa deve ter no máximo 124 caracteres!'
+      };
+      errors.push(error);
     }
     if (site.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O site é obrigatório!' });
+      const error = { type: 'Erro', message: 'O site é obrigatório!' };
+      errors.push(error);
     }
     if (state.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'O estado é obrigatória!' });
+      const error = { type: 'Erro', message: 'O estado é obrigatória!' };
+      errors.push(error);
     }
     if (city.length === 0) {
-      return response.status(400).json({ type: 'Erro', message: 'A cidade é obrigatória!' });
+      const error = { type: 'Erro', message: 'A cidade é obrigatória!' };
+      errors.push(error);
     }
-    //if (companyID != auth0.user.sub) {
-    //  return response.status(401).json({ type: 'Alerta', message: 'Usuário não autorizado!' });
-    //}
+    if (Object.keys(errors).length) {
+      return response.status(400).json({ errors });
+    }
     const user = await Company.findByIdAndUpdate(
       companyID,
       {
@@ -140,11 +155,9 @@ class CompanyController {
       return response.status(404).json({ type: 'Erro', message: 'Usuário não encontrado!' });
     }
   }
+
   async delete(request: Request, response: Response) {
     const { companyID } = request.params;
-    //if (companyID != auth0.user.sub) {
-    //  return response.status(401).json({ type: 'Alerta', message: 'Usuário não autorizado!' });
-    //}
     const user = await Company.findByIdAndDelete(companyID);
     if (user) {
       return response
