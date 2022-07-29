@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
-import { IVacancie } from '../interface/Vacancie';
+import { IVacancy } from '../interface/Vacancy';
 
-export const VacancieSchema = new Schema<IVacancie>({
+export const VacancySchema = new Schema<IVacancy>({
   name: {
     type: String,
     required: true
@@ -10,7 +10,7 @@ export const VacancieSchema = new Schema<IVacancie>({
     type: String,
     required: true
   },
-  vacancie_method: {
+  vacancy_method: {
     type: String,
     required: true
   },
@@ -29,7 +29,7 @@ export const VacancieSchema = new Schema<IVacancie>({
   area: {
     type: String,
     required: true
-  }, 
+  },
   benefits: {
     type: String,
     required: true
@@ -38,7 +38,7 @@ export const VacancieSchema = new Schema<IVacancie>({
     type: String,
     required: true
   },
-  vacancie_test: {
-    type: String,
+  vacancy_test: {
+    type: String
   }
 });

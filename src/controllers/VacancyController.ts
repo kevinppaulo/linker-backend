@@ -1,24 +1,24 @@
 import { Request, Response } from 'express';
-import { Vacancie } from '../database/models/Vacancie';
+import { Vacancy } from '../database/models/Vacancy';
 
-class VacancieController {
+class VacancyController {
   async findAll(_request: Request, response: Response) {
-    const vacancies = await Vacancie.find({});
+    const vacancys = await Vacancy.find({});
 
-    if (vacancies.length > 0) {
-      return response.status(200).json(vacancies);
+    if (vacancys.length > 0) {
+      return response.status(200).json(vacancys);
     } else {
       return response.status(204).json({ type: 'Erro', message: 'Nenhuma vaga encontrada!' });
     }
   }
 
   async findOne(request: Request, response: Response) {
-    const { vacancieID } = request.params;
+    const { vacancyID } = request.params;
 
-    const vacancie = await Vacancie.findById(vacancieID);
+    const vacancy = await Vacancy.findById(vacancyID);
 
-    if (vacancie) {
-      return response.status(200).json(vacancie);
+    if (vacancy) {
+      return response.status(200).json(vacancy);
     } else {
       return response.status(200).json({ type: 'Erro', message: 'Vaga não encontrada!' });
     }
@@ -28,14 +28,14 @@ class VacancieController {
     const {
       name,
       description,
-      vacancie_method,
+      vacancy_method,
       localization,
       requirements,
       requirements_desirable,
       area,
       benefits,
       remuneration,
-      vacancie_test
+      vacancy_test
     } = request.body;
 
     const errors = [];
@@ -60,7 +60,7 @@ class VacancieController {
       errors.push(error);
     }
 
-    if (vacancie_method.length === 0) {
+    if (vacancy_method.length === 0) {
       const error = { type: 'Erro', message: 'Metódo da vaga é obrigatório!' };
       errors.push(error);
     }
@@ -116,7 +116,7 @@ class VacancieController {
       errors.push(error);
     }
 
-    if (vacancie_test.length > 150) {
+    if (vacancy_test.length > 150) {
       const error = { type: 'Erro', message: 'Teste pode ter no máximo 150 caracteres!' };
       errors.push(error);
     }
@@ -125,19 +125,19 @@ class VacancieController {
       return response.status(400).json({ errors });
     }
 
-    const vacancie = await Vacancie.create({
+    const vacancy = await Vacancy.create({
       name,
       description,
-      vacancie_method,
+      vacancy_method,
       localization,
       requirements,
       requirements_desirable,
       area,
       benefits,
       remuneration,
-      vacancie_test
+      vacancy_test
     });
-    if (vacancie) {
+    if (vacancy) {
       return response.status(201).json({ type: 'Sucesso', message: 'Vaga criada com sucesso!' });
     } else {
       return response.status(500).send({ type: 'Erro', message: 'Vaga já existente!' });
@@ -145,18 +145,18 @@ class VacancieController {
   }
 
   async update(request: Request, response: Response) {
-    const { vacancieID } = request.params;
+    const { vacancyID } = request.params;
     const {
       name,
       description,
-      vacancie_method,
+      vacancy_method,
       localization,
       requirements,
       requirements_desirable,
       area,
       benefits,
       remuneration,
-      vacancie_test
+      vacancy_test
     } = request.body;
 
     const errors = [];
@@ -181,7 +181,7 @@ class VacancieController {
       errors.push(error);
     }
 
-    if (vacancie_method.length === 0) {
+    if (vacancy_method.length === 0) {
       const error = { type: 'Erro', message: 'Metódo da vaga é obrigatório!' };
       errors.push(error);
     }
@@ -237,7 +237,7 @@ class VacancieController {
       errors.push(error);
     }
 
-    if (vacancie_test.length > 150) {
+    if (vacancy_test.length > 150) {
       const error = { type: 'Erro', message: 'Teste pode ter no máximo 150 caracteres!' };
       errors.push(error);
     }
@@ -246,24 +246,24 @@ class VacancieController {
       return response.status(400).json({ errors });
     }
 
-    const vacancie = await Vacancie.findByIdAndUpdate(
-      vacancieID,
+    const vacancy = await Vacancy.findByIdAndUpdate(
+      vacancyID,
       {
         name,
         description,
-        vacancie_method,
+        vacancy_method,
         localization,
         requirements,
         requirements_desirable,
         area,
         benefits,
         remuneration,
-        vacancie_test
+        vacancy_test
       },
       { new: true }
     );
 
-    if (vacancie) {
+    if (vacancy) {
       return response
         .status(201)
         .json({ type: 'Sucesso', message: 'Vaga atualizada com sucesso!' });
@@ -273,9 +273,9 @@ class VacancieController {
   }
 
   async delete(request: Request, response: Response) {
-    const { vacancieID } = request.params;
-    const vacancie = await Vacancie.findByIdAndDelete(vacancieID);
-    if (vacancie) {
+    const { vacancyID } = request.params;
+    const vacancy = await Vacancy.findByIdAndDelete(vacancyID);
+    if (vacancy) {
       return response.status(200).json({ type: 'Sucesso', message: 'Vaga deletada com sucesso' });
     } else {
       return response.status(404).json({ type: 'Erro', message: 'Vaga não encontrada!' });
@@ -283,4 +283,4 @@ class VacancieController {
   }
 }
 
-export default new VacancieController();
+export default new VacancyController();

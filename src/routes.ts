@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import CompanyController from './controllers/CompanyController';
 import UserController from './controllers/UserController';
-import VacancieController from './controllers/VacancieController'
+import VacancyController from './controllers/VacancyController';
 
 const router = Router();
 
@@ -19,11 +19,11 @@ router.get('/company/:companyID', CompanyController.findOne);
 router.put('/company/:companyID', CompanyController.update);
 router.delete('/company/:companyID', CompanyController.delete);
 
-// Vacancie routes
-router.post('/vacancie', VacancieController.create);
-router.get('/vacancie', VacancieController.findAll);
-router.get('/vacancie/:vacancieID', VacancieController.findOne);
-router.put('/vacancie/:vacancieID', VacancieController.update);
-router.delete('/vacancie/:vacancieID', VacancieController.delete);
+// Vacancy routes
+router.post('/vacancy', VacancyController.create);
+router.get('/vacancy', VacancyController.findAll);
+router.get('/vacancy/:vacancyID', VacancyController.findOne);
+router.put('/vacancy/:vacancyID', VacancyController.update);
+router.delete('/vacancy/:vacancyID', VacancyController.delete);
 
 export { router };
