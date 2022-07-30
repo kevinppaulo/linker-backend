@@ -9,5 +9,5 @@ export interface IVacancy {
   benefits: String;
   salary: String;
   negotiable_salary: Boolean;
-  id_test: String;
+  test_id: String;
 }

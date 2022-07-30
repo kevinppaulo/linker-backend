@@ -42,7 +42,7 @@ export const VacancySchema = new Schema<IVacancy>({
     type: Boolean,
     required: true
   },
-  id_test: {
+  test_id: {
     type: String
   }
 });
