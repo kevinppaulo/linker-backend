@@ -8,4 +8,5 @@ export interface IUser {
   state: string;
   city: string;
   interests: string;
+  certificate: string;
 }

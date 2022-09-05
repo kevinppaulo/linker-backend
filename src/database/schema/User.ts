@@ -37,5 +37,9 @@ export const UserSchema = new Schema<IUser>({
   interests: {
     type: String,
     required: true
+  },
+  certificate: {
+    type: String,
+    required: false
   }
 });
